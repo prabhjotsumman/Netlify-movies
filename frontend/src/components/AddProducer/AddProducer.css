@@ -1,0 +1,10 @@
+.add-producer-btn {
+  width: -webkit-fill-available;
+  margin-top: 20px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
