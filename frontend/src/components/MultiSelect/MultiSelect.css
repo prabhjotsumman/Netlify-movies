@@ -1,0 +1,76 @@
+/* CustomMultiSelect.css */
+.custom-multi-select {
+  border: 1px solid #ccc;
+}
+
+.dropdown {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  overflow-y: scroll;
+  max-height: 100px;
+}
+
+.dropdown-title {
+  font-size: 16px;
+  font-weight: normal;
+  padding: 5px 10px;
+  margin: 0;
+  background-color: #000;
+  color: white;
+}
+
+.dropdown-hr {
+  margin: 0px;
+}
+
+.dropdown-item {
+  padding: 5px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9f9f9;
+  margin: 2px 0;
+}
+
+.dropdown-selected-option {
+  background: #e0e0e0;
+}
+
+.dropdown-item:hover {
+  background: #e0e0e0;
+}
+
+.selected-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 10px;
+}
+
+.option-selected {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  border-radius: 3px;
+  color: #000;
+  border: 2px solid black;
+}
+
+.delete-cross {
+  background: none;
+  border: none;
+  border-radius: 50px;
+  color: #ff4d4d;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 0px 5px;
+}
+
+.delete-cross:hover {
+  color: #ff1a1a;
+  background-color: #d2cece;
+  font: bold;
+}
