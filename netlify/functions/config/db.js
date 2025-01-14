@@ -16,11 +16,15 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const MONGO_URI = "mongodb+srv://prabh-user:prabh-imdb@cluster0.fh3m8.mongodb.net/";
     try {
+        const conn = yield mongoose_1.default.connect(MONGO_URI || process.env.MONGO_URI, {
+            connectTimeoutMS: 50000, // Adjust timeout
+        });
         yield mongoose_1.default.connect(MONGO_URI || process.env.MONGO_URI);
         console.log("Connected to MongoDB");
     }
     catch (error) {
         console.error("MongoDB connection error:", error);
+        process.exit(1); // Exit process with failure
     }
 });
 exports.default = connectDB;
