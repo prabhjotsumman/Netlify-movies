@@ -7,3 +7,6 @@
   from = "/api/*"
   to = "/.netlify/functions/index"
   status = 200
+
+[[plugins]]
+package = "@netlify/plugin-functions-install-core"
