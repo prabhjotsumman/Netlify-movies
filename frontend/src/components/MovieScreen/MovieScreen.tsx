@@ -1,8 +1,6 @@
 import React from "react";
-import { useMovieScreen } from "../../hooks/useMovieScreen"; 
-
+import { useMovieScreen } from "../../hooks/useMovieScreen";
 import MovieForm from "../MovieForm/MovieForm";
-
 import "./MovieScreen.css";
 
 const MovieScreen = () => {
@@ -21,21 +19,32 @@ const MovieScreen = () => {
   return (
     <div className="movie-list-container">
       <h1 className="page-title">Movies</h1>
+
+      {/* Display loading state */}
       {loading && <div className="loading">Loading...</div>}
+
+      {/* Display error state */}
       {error && !loading && <div className="error">Error: {error}</div>}
 
       <div className="movie-list-items">
         {movies?.map((movie) => (
           <div key={movie._id} className="movie-item">
             <div className="movie-poster">
-              <img
-                src={`https://picsum.photos/300/300?random=${movie._id}`}
-                alt={`${movie.name} Poster`}
-                className="poster-image"
-              />
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <img
+                  src={`https://picsum.photos/300/300?random=${movie._id}`}
+                  alt={`${movie.name} Poster`}
+                  className="poster-image"
+                  loading="lazy"
+                />
+              </React.Suspense>
             </div>
             <div className="movie-details">
-              <span className="movie-name">{movie.name}</span>
+              <span className="movie-name">
+                {movie.name.length > 20
+                  ? `${movie.name.substring(0, 20)}...`
+                  : movie.name}
+              </span>
               <span className="movie-year">Year: {movie.year}</span>
               <span className="movie-producer">
                 Producer: {movie.producer.name}
@@ -61,12 +70,15 @@ const MovieScreen = () => {
           </div>
         ))}
       </div>
+
+      {/* Add new movie button */}
       <div className="add-new-movie-container">
         <button type="button" onClick={handleAddClick}>
-          Add a new Movie
+          Add a new Movie!!
         </button>
       </div>
 
+      {/* Movie form for editing */}
       {showForm && editMovie && (
         <MovieForm
           initialMovie={editMovie}
@@ -75,6 +87,7 @@ const MovieScreen = () => {
         />
       )}
 
+      {/* Movie form for adding */}
       {!editMovie && showForm && (
         <MovieForm mode="add" onCancel={handleCancel} />
       )}
