@@ -36,7 +36,6 @@ const MovieForm: React.FC<MovieFormProps> = ({
     validateForm,
   } = useMovieForm({ initialMovie, mode, onCancel });
 
-
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
@@ -49,30 +48,51 @@ const MovieForm: React.FC<MovieFormProps> = ({
       <h2>{mode === "add" ? "Add New Movie" : "Edit Movie"}</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="form-row">
+          <label htmlFor="movie-name">Movie Name</label>
           <input
+            id="movie-name"
             type="text"
             placeholder="Movie Name"
             value={movie.name}
             onChange={(e) => setMovie({ ...movie, name: e.target.value })}
+            aria-required="true"
           />
-          {errors.name && <span className="error">{errors.name}</span>}
+          {errors.name && (
+            <span className="error" role="alert">
+              {errors.name}
+            </span>
+          )}
+          <label htmlFor="movie-year">Year</label>
           <input
+            id="movie-year"
             type="number"
             placeholder="Year"
             value={movie.year}
             onChange={(e) =>
               setMovie({ ...movie, year: parseInt(e.target.value, 10) })
             }
+            aria-required="true"
           />
-          {errors.year && <span className="error">{errors.year}</span>}
+          {errors.year && (
+            <span className="error" role="alert">
+              {errors.year}
+            </span>
+          )}
         </div>
+        <label htmlFor="movie-plot">Plot</label>
         <textarea
+          id="movie-plot"
           placeholder="Plot"
           className="input-plot"
           value={movie.plot}
           onChange={(e) => setMovie({ ...movie, plot: e.target.value })}
+          aria-required="true"
         />
-        {errors.plot && <span className="error">{errors.plot}</span>}
+        {errors.plot && (
+          <span className="error" role="alert">
+            {errors.plot}
+          </span>
+        )}
 
         <MultiSelect
           title="Actors"
@@ -82,7 +102,11 @@ const MovieForm: React.FC<MovieFormProps> = ({
           multiple
           onItemDelete={handleDeleteActorFromDatabase}
         />
-        {errors.actors && <span className="error">{errors.actors}</span>}
+        {errors.actors && (
+          <span className="error" role="alert">
+            {errors.actors}
+          </span>
+        )}
 
         <AddActor onActorAdded={handleNewActor} />
 
@@ -93,7 +117,11 @@ const MovieForm: React.FC<MovieFormProps> = ({
           setSelectedOptions={setSelectedProducer}
           onItemDelete={handleDeleteProducerFromDatabase}
         />
-        {errors.producer && <span className="error">{errors.producer}</span>}
+        {errors.producer && (
+          <span className="error" role="alert">
+            {errors.producer}
+          </span>
+        )}
         <AddProducer />
 
         <button

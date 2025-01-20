@@ -26,14 +26,18 @@ const AddProducer = () => {
         type="button"
         className="add-producer-btn btn-secondary"
         onClick={() => setShowAddProducerForm((prev) => !prev)}
+        aria-expanded={showAddProducerForm}
+        aria-controls="producer-form"
       >
         Add New Producer
       </button>
 
       {showAddProducerForm && (
-        <div className="producer-form">
+        <div id="producer-form" className="producer-form">
           <div className="form-row">
+            <label htmlFor="producer-name">Name</label>
             <input
+              id="producer-name"
               type="text"
               placeholder="Name"
               pattern="[A-Za-z\s]*"
@@ -47,17 +51,25 @@ const AddProducer = () => {
                   ""
                 ))
               }
+              aria-required="true"
             />
             {errors.name && <div className="error-input">{errors.name}</div>}
+
+            <label htmlFor="producer-dob">Date of Birth</label>
             <input
+              id="producer-dob"
               type="date"
               value={newProducer.dob}
               onChange={(e) =>
                 setNewProducer((prev) => ({ ...prev, dob: e.target.value }))
               }
+              aria-required="true"
             />
             {errors.dob && <div className="error-input">{errors.dob}</div>}
+
+            <label htmlFor="producer-gender">Gender</label>
             <select
+              id="producer-gender"
               value={newProducer.gender}
               onChange={(e) =>
                 setNewProducer((prev) => ({
@@ -65,6 +77,7 @@ const AddProducer = () => {
                   gender: e.target.value,
                 }))
               }
+              aria-required="true"
             >
               <option value="" disabled>
                 Gender
@@ -75,14 +88,19 @@ const AddProducer = () => {
             {errors.gender && (
               <div className="error-input">{errors.gender}</div>
             )}
+
+            <label htmlFor="producer-bio">Bio</label>
             <textarea
+              id="producer-bio"
               placeholder="Bio"
               value={newProducer.bio}
               onChange={(e) =>
                 setNewProducer((prev) => ({ ...prev, bio: e.target.value }))
               }
+              aria-required="true"
             />
             {errors.bio && <div className="error-input">{errors.bio}</div>}
+
             <button
               onClick={handleSaveProducer}
               className="save-button"

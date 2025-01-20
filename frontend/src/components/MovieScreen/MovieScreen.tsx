@@ -21,14 +21,14 @@ const MovieScreen = () => {
       <h1 className="page-title">Movies</h1>
 
       {/* Display loading state */}
-      {loading && <div className="loading">Loading...</div>}
+      {loading && <div className="loading" role="status" aria-live="polite">Loading...</div>}
 
       {/* Display error state */}
-      {error && !loading && <div className="error">Error: {error}</div>}
+      {error && !loading && <div className="error" role="alert">Error: {error}</div>}
 
       <div className="movie-list-items">
         {movies?.map((movie) => (
-          <div key={movie._id} className="movie-item">
+          <div key={movie._id} className="movie-item" role="listitem">
             <div className="movie-poster">
               <React.Suspense fallback={<div>Loading...</div>}>
                 <img
@@ -56,12 +56,14 @@ const MovieScreen = () => {
                 <button
                   onClick={() => handleEditClick(movie)}
                   className="edit-button"
+                  aria-label={`Edit ${movie.name}`}
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDeleteClick(movie._id as string)}
                   className="delete-button"
+                  aria-label={`Delete ${movie.name}`}
                 >
                   Delete
                 </button>
@@ -73,7 +75,7 @@ const MovieScreen = () => {
 
       {/* Add new movie button */}
       <div className="add-new-movie-container">
-        <button type="button" onClick={handleAddClick}>
+        <button type="button" onClick={handleAddClick} aria-label="Add a new Movie">
           Add a new Movie!!
         </button>
       </div>

@@ -30,14 +30,18 @@ const AddActor: React.FC<{ onActorAdded?: (actor: Actor) => void }> = ({
         type="button"
         className="add-actor-btn btn-secondary"
         onClick={() => setShowAddActorForm((prev) => !prev)}
+        aria-expanded={showAddActorForm}
+        aria-controls="actor-form"
       >
         Add New Actor
       </button>
 
       {showAddActorForm && (
-        <div className="actor-form">
+        <div id="actor-form" className="actor-form">
           <div className="form-row">
+            <label htmlFor="actor-name">Name</label>
             <input
+              id="actor-name"
               type="text"
               placeholder="Name"
               pattern="[A-Za-z\s]*"
@@ -51,25 +55,41 @@ const AddActor: React.FC<{ onActorAdded?: (actor: Actor) => void }> = ({
                   ""
                 ))
               }
+              aria-invalid={!!inputErrors.name}
+              aria-describedby="name-error"
             />
             {inputErrors.name && (
-              <div className="error-input">{inputErrors.name}</div>
+              <div id="name-error" className="error-input">
+                {inputErrors.name}
+              </div>
             )}
+
+            <label htmlFor="actor-dob">Date of Birth</label>
             <input
+              id="actor-dob"
               type="date"
               value={newActor.dob}
               onChange={(e) =>
                 setNewActor((prev) => ({ ...prev, dob: e.target.value }))
               }
+              aria-invalid={!!inputErrors.dob}
+              aria-describedby="dob-error"
             />
             {inputErrors.dob && (
-              <div className="error-input">{inputErrors.dob}</div>
+              <div id="dob-error" className="error-input">
+                {inputErrors.dob}
+              </div>
             )}
+
+            <label htmlFor="actor-gender">Gender</label>
             <select
+              id="actor-gender"
               value={newActor.gender}
               onChange={(e) =>
                 setNewActor((prev) => ({ ...prev, gender: e.target.value }))
               }
+              aria-invalid={!!inputErrors.gender}
+              aria-describedby="gender-error"
             >
               <option value="" disabled>
                 Gender
@@ -78,18 +98,28 @@ const AddActor: React.FC<{ onActorAdded?: (actor: Actor) => void }> = ({
               <option>Female</option>
             </select>
             {inputErrors.gender && (
-              <div className="error-input">{inputErrors.gender}</div>
+              <div id="gender-error" className="error-input">
+                {inputErrors.gender}
+              </div>
             )}
+
+            <label htmlFor="actor-bio">Bio</label>
             <textarea
+              id="actor-bio"
               placeholder="Bio"
               value={newActor.bio}
               onChange={(e) =>
                 setNewActor((prev) => ({ ...prev, bio: e.target.value }))
               }
+              aria-invalid={!!inputErrors.bio}
+              aria-describedby="bio-error"
             />
             {inputErrors.bio && (
-              <div className="error-input">{inputErrors.bio}</div>
+              <div id="bio-error" className="error-input">
+                {inputErrors.bio}
+              </div>
             )}
+
             <button
               onClick={handleSaveActor}
               disabled={
