@@ -1,5 +1,5 @@
 import React from "react";
-import { useAddProducer } from "../../hooks/useAddProducer";
+import { useAddProducer } from "../../hooks";
 import "./AddProducer.css";
 
 const AddProducer = () => {

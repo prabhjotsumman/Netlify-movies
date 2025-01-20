@@ -1,5 +1,5 @@
 import React from "react";
-import { useAddActor } from "../../hooks/useAddActor";
+import { useAddActor } from "../../hooks";
 import { Actor } from "../../reducers/actorSlice";
 
 import "./AddActor.css";

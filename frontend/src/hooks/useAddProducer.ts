@@ -3,7 +3,7 @@ import { addProducer, Producer } from "../reducers/producerSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 
-export const useAddProducer = () => {
+const useAddProducer = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [showAddProducerForm, setShowAddProducerForm] = useState(false);
@@ -95,3 +95,5 @@ export const useAddProducer = () => {
     validateFields,
   };
 };
+
+export default useAddProducer;

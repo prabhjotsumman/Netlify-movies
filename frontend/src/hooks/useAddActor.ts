@@ -3,7 +3,7 @@ import { Actor, addActor } from "../reducers/actorSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 
-export const useAddActor = (onActorAdded?: (actor: Actor) => void) => {
+const useAddActor = (onActorAdded?: (actor: Actor) => void) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [showAddActorForm, setShowAddActorForm] = useState(false);
@@ -92,3 +92,5 @@ export const useAddActor = (onActorAdded?: (actor: Actor) => void) => {
     validateInputs,
   };
 };
+
+export default useAddActor;

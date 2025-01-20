@@ -1,12 +1,12 @@
 import React from "react";
-import { useMovieForm } from "../../hooks/useMovieForm";
-import MultiSelect from "../MultiSelect/MultiSelect";
-import AddActor from "../AddActor/AddActor";
-import AddProducer from "../AddProducer/AddProducer";
+import { useMovieForm } from "../../hooks";
 import { Movie } from "../../reducers/movieSlice";
 
 import "./AddMovie.css";
 import "./MovieForm.css";
+import AddProducer from "../AddProducer/AddProducer";
+import AddActor from "../AddActor/AddActor";
+import MultiSelect from "../common/MultiSelect/MultiSelect";
 
 interface MovieFormProps {
   initialMovie?: Movie | null;
