@@ -1,5 +1,5 @@
 import React from "react";
-import { useMovieScreen } from "../../hooks/useMovieScreen";
+import { useMovieScreen } from "../../hooks";
 import MovieForm from "../MovieForm/MovieForm";
 import "./MovieScreen.css";
 
