@@ -14,7 +14,15 @@ const AddActor: React.FC<{ onActorAdded?: (actor: Actor) => void }> = ({
     newActor,
     setNewActor,
     handleAddActor,
+    inputErrors,
+    validateInputs,
   } = useAddActor(onActorAdded);
+
+  const handleSaveActor = () => {
+    if (validateInputs()) {
+      handleAddActor();
+    }
+  };
 
   return (
     <div>
@@ -44,6 +52,9 @@ const AddActor: React.FC<{ onActorAdded?: (actor: Actor) => void }> = ({
                 ))
               }
             />
+            {inputErrors.name && (
+              <div className="error-input">{inputErrors.name}</div>
+            )}
             <input
               type="date"
               value={newActor.dob}
@@ -51,6 +62,9 @@ const AddActor: React.FC<{ onActorAdded?: (actor: Actor) => void }> = ({
                 setNewActor((prev) => ({ ...prev, dob: e.target.value }))
               }
             />
+            {inputErrors.dob && (
+              <div className="error-input">{inputErrors.dob}</div>
+            )}
             <select
               value={newActor.gender}
               onChange={(e) =>
@@ -63,6 +77,9 @@ const AddActor: React.FC<{ onActorAdded?: (actor: Actor) => void }> = ({
               <option>Male</option>
               <option>Female</option>
             </select>
+            {inputErrors.gender && (
+              <div className="error-input">{inputErrors.gender}</div>
+            )}
             <textarea
               placeholder="Bio"
               value={newActor.bio}
@@ -70,8 +87,11 @@ const AddActor: React.FC<{ onActorAdded?: (actor: Actor) => void }> = ({
                 setNewActor((prev) => ({ ...prev, bio: e.target.value }))
               }
             />
+            {inputErrors.bio && (
+              <div className="error-input">{inputErrors.bio}</div>
+            )}
             <button
-              onClick={handleAddActor}
+              onClick={handleSaveActor}
               disabled={
                 !newActor.name ||
                 !newActor.dob ||
@@ -82,7 +102,9 @@ const AddActor: React.FC<{ onActorAdded?: (actor: Actor) => void }> = ({
               Save Actor
             </button>
           </div>
-          {error && <div className="error">{"Please check all Inputs."}</div>}
+          {error && (
+            <div className="error-input">{"Please check all Inputs."}</div>
+          )}
         </div>
       )}
     </div>

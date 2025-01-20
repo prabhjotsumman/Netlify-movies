@@ -111,6 +111,37 @@ const useMovieForm = ({
     dispatch(deleteProducer(option._id as string));
   };
 
+  const [errors, setErrors] = useState({
+    name: "",
+    year: "",
+    plot: "",
+    actors: "",
+    producer: "",
+  });
+
+  const validateForm = () => {
+    const newErrors = {
+      name: "",
+      year: "",
+      plot: "",
+      actors: "",
+      producer: "",
+    };
+    if (!movie.name) newErrors.name = "Movie name is required";
+    if (movie?.name.split(" ").length > 20)
+      newErrors.name = "Movie name cannot exceed 20 words";
+    if (!movie.year) newErrors.year = "Year is required";
+    if (!movie.plot) newErrors.plot = "Plot is required";
+    if (movie.name.split(" ").length > 200)
+      newErrors.plot = "Plot cannot exceed 200 words";
+
+    if (!selectedActors.length)
+      newErrors.actors = "At least one actor is required";
+    if (!selectedProducer.length) newErrors.producer = "Producer is required";
+    setErrors(newErrors);
+    return Object.values(newErrors).every((error) => !error);
+  };
+
   return {
     movie,
     setMovie,
@@ -124,6 +155,9 @@ const useMovieForm = ({
     handleNewActor,
     handleDeleteActorFromDatabase,
     handleDeleteProducerFromDatabase,
+    errors,
+    setErrors,
+    validateForm,
   };
 };
 

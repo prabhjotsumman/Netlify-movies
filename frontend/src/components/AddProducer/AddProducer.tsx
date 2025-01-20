@@ -10,7 +10,15 @@ const AddProducer = () => {
     newProducer,
     setNewProducer,
     handleAddProducer,
+    errors,
+    validateFields,
   } = useAddProducer();
+
+  const handleSaveProducer = () => {
+    if (validateFields()) {
+      handleAddProducer();
+    }
+  };
 
   return (
     <div>
@@ -40,6 +48,7 @@ const AddProducer = () => {
                 ))
               }
             />
+            {errors.name && <div className="error-input">{errors.name}</div>}
             <input
               type="date"
               value={newProducer.dob}
@@ -47,6 +56,7 @@ const AddProducer = () => {
                 setNewProducer((prev) => ({ ...prev, dob: e.target.value }))
               }
             />
+            {errors.dob && <div className="error-input">{errors.dob}</div>}
             <select
               value={newProducer.gender}
               onChange={(e) =>
@@ -62,6 +72,9 @@ const AddProducer = () => {
               <option>Male</option>
               <option>Female</option>
             </select>
+            {errors.gender && (
+              <div className="error-input">{errors.gender}</div>
+            )}
             <textarea
               placeholder="Bio"
               value={newProducer.bio}
@@ -69,8 +82,9 @@ const AddProducer = () => {
                 setNewProducer((prev) => ({ ...prev, bio: e.target.value }))
               }
             />
+            {errors.bio && <div className="error-input">{errors.bio}</div>}
             <button
-              onClick={handleAddProducer}
+              onClick={handleSaveProducer}
               className="save-button"
               disabled={
                 !newProducer.name ||
@@ -82,7 +96,9 @@ const AddProducer = () => {
               Save Producer
             </button>
           </div>
-          {error && <div className="error">{"Please check all Inputs."}</div>}
+          {error && (
+            <div className="error-input">{"Please check all Inputs."}</div>
+          )}
         </div>
       )}
     </div>

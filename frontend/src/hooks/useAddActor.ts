@@ -51,6 +51,35 @@ export const useAddActor = (onActorAdded?: (actor: Actor) => void) => {
     }
   };
 
+  const [inputErrors, setInputErrors] = useState({
+    name: "",
+    dob: "",
+    gender: "",
+    bio: "",
+  });
+
+  const validateInputs = () => {
+    const errors = {
+      name: "",
+      dob: "",
+      gender: "",
+      bio: "",
+    };
+
+    if (!newActor.name) errors.name = "Name is required.";
+    if (newActor.name.length > 20)
+      errors.name = "Name should not be greater than 20 characters.";
+    if (!newActor.dob) errors.dob = "Date of birth is required.";
+    if (!newActor.gender) errors.gender = "Gender is required.";
+    if (!newActor.bio) errors.bio = "Bio is required.";
+    if (newActor.bio.length > 50)
+      errors.name = "Bio should not be greater than 50 characters.";
+
+    setInputErrors(errors);
+
+    return !errors.name && !errors.dob && !errors.gender && !errors.bio;
+  };
+
   return {
     showAddActorForm,
     setShowAddActorForm,
@@ -58,5 +87,8 @@ export const useAddActor = (onActorAdded?: (actor: Actor) => void) => {
     newActor,
     setNewActor,
     handleAddActor,
+    inputErrors,
+    setInputErrors,
+    validateInputs,
   };
 };

@@ -3,8 +3,8 @@
   margin-top: 20px;
 }
 
-.error {
-  color: red;
-  font-size: 14px;
-  margin-top: 5px;
+.error-input {
+  padding: 4px;
+  color: #e03434;
+  text-align: left;
 }

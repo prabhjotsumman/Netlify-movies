@@ -48,6 +48,41 @@ export const useAddProducer = () => {
     setShowAddProducerForm(false);
   };
 
+  const [errors, setErrors] = useState({
+    name: "",
+    dob: "",
+    gender: "",
+    bio: "",
+  });
+
+  const validateFields = () => {
+    let isValid = true;
+    const newErrors = { name: "", dob: "", gender: "", bio: "" };
+
+    if (!newProducer.name) {
+      newErrors.name = "Name is required.";
+      isValid = false;
+    }
+
+    if (!newProducer.dob) {
+      newErrors.dob = "Date of Birth is required.";
+      isValid = false;
+    }
+
+    if (!newProducer.gender) {
+      newErrors.gender = "Gender is required.";
+      isValid = false;
+    }
+
+    if (!newProducer.bio) {
+      newErrors.bio = "Bio is required.";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   return {
     showAddProducerForm,
     setShowAddProducerForm,
@@ -56,5 +91,7 @@ export const useAddProducer = () => {
     newProducer,
     setNewProducer,
     handleAddProducer,
+    errors,
+    validateFields,
   };
 };

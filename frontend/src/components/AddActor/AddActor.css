@@ -1,9 +1,15 @@
 .add-actor-btn {
-    width: -webkit-fill-available;
+  width: -webkit-fill-available;
 }
 
 button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-    color:#000;
-  }
+  background-color: #cccccc;
+  cursor: not-allowed;
+  color: #000;
+}
+
+.error-input {
+  padding: 4px;
+  color: #e03434;
+  text-align: left;
+}
