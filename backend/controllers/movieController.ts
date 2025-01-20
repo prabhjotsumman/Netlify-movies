@@ -1,12 +1,16 @@
 import { Request, Response } from "express";
 import Movie from "../models/movieModel";
 
+const handleErrorResponse = (res: Response, error: unknown, statusCode: number = 500) => {
+  res.status(statusCode).json({ message: (error as any).message });
+};
+
 export const getMovies = async (req: Request, res: Response) => {
   try {
     const movies = await Movie.find().populate("producer").populate("actors");
     res.json(movies);
   } catch (error) {
-    res.status(500).json({ message: (error as any).message });
+    handleErrorResponse(res, error);
   }
 };
 
@@ -15,15 +19,12 @@ export const addMovie = async (req: Request, res: Response) => {
   try {
     const movie = new Movie({ name, year, plot, poster, producer, actors });
     const savedMovie = await movie.save();
-
-    // Populate the producer and actors fields
     const populatedMovie = await Movie.findById(savedMovie._id)
       .populate("producer")
       .populate("actors");
-
     res.status(201).json(populatedMovie);
   } catch (error) {
-    res.status(400).json({ message: (error as any).message });
+    handleErrorResponse(res, error, 400);
   }
 };
 
@@ -38,10 +39,9 @@ export const updateMovie = async (req: Request, res: Response) => {
     )
       .populate("producer")
       .populate("actors");
-
     res.json(movie);
   } catch (error) {
-    res.status(400).json({ message: (error as any).message });
+    handleErrorResponse(res, error, 400);
   }
 };
 
@@ -51,6 +51,6 @@ export const deleteMovie = async (req: Request, res: Response) => {
     await Movie.findByIdAndDelete(id);
     res.json({ message: "Movie deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: (error as any).message });
+    handleErrorResponse(res, error);
   }
 };

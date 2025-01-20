@@ -1,12 +1,16 @@
 import { Request, Response } from "express";
 import Producer from "../models/producerModel";
 
+const handleErrorResponse = (res: Response, error: unknown, statusCode: number) => {
+    res.status(statusCode).json({ message: (error as any).message });
+};
+
 export const getProducers = async (req: Request, res: Response) => {
     try {
         const producers = await Producer.find();
         res.json(producers);
     } catch (error) {
-        res.status(500).json({ message: (error as any).message });
+        handleErrorResponse(res, error, 500);
     }
 };
 
@@ -17,7 +21,7 @@ export const addProducer = async (req: Request, res: Response) => {
         await producer.save();
         res.status(201).json(producer);
     } catch (error) {
-        res.status(400).json({ message: (error as any).message });
+        handleErrorResponse(res, error, 400);
     }
 };
 
@@ -28,7 +32,7 @@ export const updateProducer = async (req: Request, res: Response) => {
         const producer = await Producer.findByIdAndUpdate(id, { name, gender, dob, bio }, { new: true });
         res.json(producer);
     } catch (error) {
-        res.status(400).json({ message: (error as any).message });
+        handleErrorResponse(res, error, 400);
     }
 };
 
@@ -38,6 +42,6 @@ export const deleteProducer = async (req: Request, res: Response) => {
         await Producer.findByIdAndDelete(id);
         res.json({ message: "Producer deleted successfully" });
     } catch (error) {
-        res.status(500).json({ message: (error as any).message });
+        handleErrorResponse(res, error, 500);
     }
 };
